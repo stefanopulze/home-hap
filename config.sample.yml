@@ -1,0 +1,19 @@
+homekit:
+  pin: '00102003'
+  name: 'local-dev'
+  storage: './db'
+
+metrics:
+  enabled: true
+  enableOpenMetrics: true
+
+log:
+  level: debug
+
+home-relay:
+  server: http://192.168.20.111
+
+daitem:
+  email: ""
+  password: ""
+  master-code: ""
