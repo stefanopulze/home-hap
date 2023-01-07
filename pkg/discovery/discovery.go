@@ -32,6 +32,10 @@ func (d *Discovery) LocalDevices() {
 	daitem := device.NewDaitem(d.cfg.Daitem)
 	daitem.Id = 4
 	d.accessories = append(d.accessories, daitem.A)
+
+	ingressLight := device.NewShellyIngress("http://192.168.20.51")
+	ingressLight.Id = 5
+	d.accessories = append(d.accessories, ingressLight.A)
 }
 
 func (d *Discovery) GetDevices() []*accessory.A {
