@@ -29,7 +29,7 @@ func NewGate(opts config.HomeRelay) *accessory.Door {
 		go func() {
 			// 0 = close, 100 = open
 			client := rest.NewRestClient(opts.Server)
-			data := homeRelayRequest{Turn: "on", Timer: 250}
+			data := homeRelayRequest{Turn: "on", Timer: opts.Gate.Timer}
 
 			client.PostJson("/relay/1", data)
 		}()
@@ -57,7 +57,7 @@ func NewIngressGate(opts config.HomeRelay) *accessory.Switch {
 		go func() {
 			data := homeRelayRequest{
 				Turn:  "on",
-				Timer: 250,
+				Timer: opts.IngressGate.Timer,
 			}
 
 			client := rest.NewRestClient(opts.Server)
@@ -66,7 +66,7 @@ func NewIngressGate(opts config.HomeRelay) *accessory.Switch {
 			}
 		}()
 
-		time.Sleep(250 * time.Millisecond)
+		time.Sleep(900 * time.Millisecond)
 		a.Switch.On.SetValue(false)
 	})
 

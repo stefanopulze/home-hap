@@ -17,11 +17,21 @@ type LogOpts struct {
 }
 
 type HomeRelay struct {
-	Server string `yaml:"server"`
+	Server      string            `yaml:"server"`
+	Gate        GateConfig        `yaml:"gate"`
+	IngressGate IngressGateConfig `yaml:"ingress-gate"`
 }
 
 type DaitemConfig struct {
 	Email      string `yaml:"email" env:"DAITEM_EMAIL"`
 	Password   string `yaml:"password" env:"DAITEM_PASSWORD"`
 	MasterCode string `yaml:"master-code" env:"DAITEM_MASTER_CODE"`
+}
+
+type GateConfig struct {
+	Timer uint16 `yaml:"timer"`
+}
+
+type IngressGateConfig struct {
+	Timer uint16 `yaml:"timer"`
 }

@@ -22,8 +22,8 @@ RUN CGO_ENABLED=0 go build \
 FROM scratch
 
 WORKDIR /app
-COPY --from=builder /app/home-hap /app/home-hap
-COPY --from=builder /app/config.yml /app/config.yml
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY --from=builder /app/config.yml /app/config.yml
+COPY --from=builder /app/home-hap /app/home-hap
 
 CMD [ "/app/home-hap" ]

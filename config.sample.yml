@@ -12,6 +12,10 @@ log:
 
 home-relay:
   server: http://192.168.20.111
+  gate:
+    timer: 500
+  ingress-gate:
+    timer: 1000
 
 daitem:
   email: ""
