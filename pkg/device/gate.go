@@ -64,10 +64,10 @@ func NewIngressGate(opts config.HomeRelay) *accessory.Switch {
 			if _, err := client.PostJson("/relay/0", data); err != nil {
 				l.Error("Cannot change state of gate on relay 0")
 			}
-		}()
 
-		time.Sleep(900 * time.Millisecond)
-		a.Switch.On.SetValue(false)
+			time.Sleep(900 * time.Millisecond)
+			a.Switch.On.SetValue(false)
+		}()
 	})
 
 	return a
