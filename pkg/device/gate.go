@@ -32,12 +32,12 @@ func NewGate(opts config.HomeRelay) *accessory.Door {
 			data := homeRelayRequest{Turn: "on", Timer: opts.Gate.Timer}
 
 			client.PostJson("/relay/1", data)
-		}()
 
-		time.Sleep(10 * time.Second)
-		// Set close as default, the command is like a switch
-		a.Door.CurrentPosition.SetValue(0)
-		a.Door.TargetPosition.SetValue(0)
+			time.Sleep(1 * time.Second)
+			// Set close as default, the command is like a switch
+			a.Door.CurrentPosition.SetValue(0)
+			a.Door.TargetPosition.SetValue(0)
+		}()
 	})
 
 	return a
@@ -65,7 +65,6 @@ func NewIngressGate(opts config.HomeRelay) *accessory.Switch {
 				l.Error("Cannot change state of gate on relay 0")
 			}
 
-			time.Sleep(900 * time.Millisecond)
 			a.Switch.On.SetValue(false)
 		}()
 	})
