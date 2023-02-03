@@ -29,9 +29,9 @@ func (d *Discovery) LocalDevices() {
 	gate.Id = 3
 	d.accessories = append(d.accessories, gate.A)
 
-	daitem := device.NewDaitem(d.cfg.Daitem)
-	daitem.Id = 4
-	d.accessories = append(d.accessories, daitem.A)
+	//daitem := device.NewDaitem(d.cfg.Daitem)
+	//daitem.Id = 4
+	//d.accessories = append(d.accessories, daitem.A)
 
 	ingressLight := device.NewShellyIngress("http://192.168.20.51")
 	ingressLight.Id = 5
