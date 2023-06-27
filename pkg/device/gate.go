@@ -31,28 +31,28 @@ func NewGate(opts config.HomeRelay) *accessory.Door {
 			client := rest.NewRestClient(opts.Server)
 			data := homeRelayRequest{Turn: "on", Timer: opts.Gate.Timer}
 
-			client.PostJson("/relay/1", data)
+			_, _ = client.PostJson("/relay/1", data)
 
 			time.Sleep(1 * time.Second)
 			// Set close as default, the command is like a switch
-			a.Door.CurrentPosition.SetValue(0)
-			a.Door.TargetPosition.SetValue(0)
+			_ = a.Door.CurrentPosition.SetValue(0)
+			_ = a.Door.TargetPosition.SetValue(0)
 		}()
 	})
 
 	return a
 }
 
-func NewIngressGate(opts config.HomeRelay) *accessory.Switch {
-	a := accessory.NewSwitch(accessory.Info{
+func NewIngressGate(opts config.HomeRelay) *accessory.Door {
+	a := accessory.NewDoor(accessory.Info{
 		Name:         "Cancello ingresso",
 		SerialNumber: "100",
 		Firmware:     "0.0.1",
 	})
 
-	a.Switch.On.OnValueRemoteUpdate(func(v bool) {
+	a.Door.TargetPosition.OnValueRemoteUpdate(func(v int) {
 		l := logging.GetLoggerWithField("accessory", "ingress-gate")
-		l.Info(fmt.Sprintf("new state gate: %s", booleanToString(v)))
+		l.Info(fmt.Sprintf("new state gate: %s", doorValueToString(v)))
 
 		go func() {
 			data := homeRelayRequest{
@@ -65,7 +65,8 @@ func NewIngressGate(opts config.HomeRelay) *accessory.Switch {
 				l.Error("Cannot change state of gate on relay 0")
 			}
 
-			a.Switch.On.SetValue(false)
+			_ = a.Door.CurrentPosition.SetValue(0)
+			_ = a.Door.TargetPosition.SetValue(0)
 		}()
 	})
 
